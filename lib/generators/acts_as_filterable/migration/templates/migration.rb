@@ -1,4 +1,4 @@
-class CreateMetadata < ActiveRecord::Migration
+class CreateFilters < ActiveRecord::Migration
   def self.up
     create_table :filters do |t|
       t.column :id, :integer

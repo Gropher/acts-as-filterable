@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Gropher"]
   s.email       = ["grophen@gmail.com"]
-  s.homepage    = "https://github.com/Gropher/acts-as-filterable"
+  s.homepage    = "git@github.com:dultonmedia/acts_as_filterable.git"
   s.summary     = %q{Persistent Ransack search queries}
   s.description = %q{This gem allows you to save your Ransack search queries to database as filter objects. Also you'll be able to choose models, attributes and variable names you want to use in your queries. }
 

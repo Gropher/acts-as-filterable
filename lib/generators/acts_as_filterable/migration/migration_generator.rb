@@ -16,7 +16,7 @@ module ActsAsFilterable
     end
 
     def create_migration_file
-      migration_template 'migration.rb', 'db/migrate/create_metadata.rb'
+      migration_template 'migration.rb', 'db/migrate/create_filters.rb'
     end
   end
 end

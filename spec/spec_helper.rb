@@ -44,3 +44,42 @@ ActiveRecord::Base.connection.create_table(:filters) do |t|
   t.datetime "created_at"
   t.datetime "updated_at"
 end
+
+ADVANCED_QUERY = {
+  :s => {
+    '0' => {
+      :name => 'id',
+      :dir => 'desc'
+    }
+  },
+  :g => { 
+    '0' => { 
+      :m => 'and', 
+      :c => { 
+        '0' => { 
+          :a => { 
+            '0' => { name: 'name' }
+          }, 
+          :p => 'matches', 
+          :v => { 
+            '0' => { value: 'adv_%' } 
+          } 
+        } 
+      } 
+    },
+    '1' => { 
+      :m => 'and', 
+      :c => { 
+        '0' => { 
+          :a => { 
+            '0' => { name: 'user_id' }
+          }, 
+          :p => 'eq', 
+          :v => { 
+            '0' => { value: '%%current_user_id%%' } 
+          } 
+        } 
+      } 
+    }
+  } 
+}

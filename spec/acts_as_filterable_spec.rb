@@ -46,29 +46,39 @@ describe ActsAsFilterable do
 
   it 'uses variables correctly with :only definition' do
     MyModel.create! :name => 'test3', :user_id => 123
-    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%current_user_id%' }
+    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%%current_user_id%%' }
     MyModel.filter(f, current_user_id: 123).count.should == 1
     MyModel.filter(f, current_user_id: 321).count.should == 0
   end
 
   it 'uses variables correctly with :except definition' do
     MyOtherModel.create! :name => 'test3', :user_id => 123
-    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%current_user_id%' }
+    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%%current_user_id%%' }
     MyOtherModel.filter(f, current_user_id: 123).count.should == 1
     MyOtherModel.filter(f, current_user_id: 321).count.should == 0
   end
 
   it 'don\'t substitude unlisted variables with :only definition' do
     MyModel.create! :name => 'test3', :user_id => 123
-    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%some_other_variable%' }
+    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%%some_other_variable%%' }
     MyModel.filter(f, current_user_id: 123).count.should == 0
     MyModel.filter(f, current_user_id: 321).count.should == 0
   end
 
   it 'don\'t substitude unlisted variables with :except definition' do
     MyOtherModel.create! :name => 'test3', :user_id => 123
-    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%some_other_variable%' }
+    f = Filter.create! name: 'test_variable', query: { user_id_eq: '%%some_other_variable%%' }
     MyOtherModel.filter(f, current_user_id: 123).count.should == 0
     MyOtherModel.filter(f, current_user_id: 321).count.should == 0
+  end
+
+  ############################################# Advanced Queries ####################################################
+  it 'create and apply filter with advanced query' do
+    filter = Filter.create! name: 'adv_test1', query: ADVANCED_QUERY
+    
+    MyModel.create! :name => 'adv_test1', :user_id => 999
+    MyModel.create! :name => 'adv_test2', :user_id => 999
+    MyModel.create! :name => 'adv_test3', :user_id => 666
+    MyModel.filter(filter, current_user_id: 999).count.should == 2
   end
 end
